@@ -179,6 +179,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} antialiased bg-[#F7F5F3]`}>
       <head>
         <link rel="canonical" href={siteUrl} />
+        <script defer data-domain="fable5.io" src="https://plau.origai.net/js/script.js"></script>
         <script
           id="ld-website"
           type="application/ld+json"
