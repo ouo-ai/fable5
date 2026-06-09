@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Instrument_Serif } from "next/font/google"
 import "./globals.css"
+import { faqData } from "../lib/faq-data"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,17 +24,21 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://fable5.io").replac
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Fable 5 — Independent AI Model Guide & Prompt Workspace",
+    default: "Fable 5 AI — Independent Model Guide & Prompt Workspace",
     template: "%s | Fable 5",
   },
   description:
-    "Fable 5 prompt workspace for AI keyword research. Plan prompts, compare model notes, track access signals, and review sources with an independent guide.",
+    "Independent Fable 5 AI guide and prompt workspace. Plan Fable 5 prompts with 5 modes and 40+ templates, compare model notes, and track access signals.",
   keywords: [
     "Fable 5",
     "Fable 5 AI",
     "Fable 5 model",
+    "Fable 5 prompts",
     "Fable 5 prompt guide",
+    "Fable 5 prompt templates",
     "Fable 5 AI model",
+    "Fable 5 workspace",
+    "Fable 5 access",
     "fable5",
     "AI prompt workspace",
     "AI model comparison",
@@ -65,17 +70,18 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Fable 5",
-    title: "Fable 5 — Independent AI Model Guide & Prompt Workspace",
+    title: "Fable 5 AI — Independent Model Guide & Prompt Workspace",
     description:
-      "Explore Fable 5 through an independent prompt guide. Build, compare, and refine prompt plans with transparent Fable 5 model notes.",
+      "Explore Fable 5 through an independent prompt guide. Build, compare, and refine Fable 5 AI prompt plans with transparent model notes.",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fable 5 — Independent AI Model Guide & Prompt Workspace",
+    site: "@fable5io",
+    creator: "@fable5io",
+    title: "Fable 5 AI — Independent Model Guide & Prompt Workspace",
     description:
       "Craft better prompts for Fable 5 AI. Independent guide covering Fable 5 model prompts, safety checklists, and access-tracking notes.",
-    creator: "@fable5io",
   },
   generator: "v0.app",
 }
@@ -84,14 +90,19 @@ const jsonLdWebsite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Fable 5",
+  alternateName: ["fable5.io", "Fable 5 AI"],
   url: siteUrl,
   description:
     "Independent AI model guide and prompt workspace for Fable 5. No official affiliation is claimed.",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?q={search_term_string}` },
-    "query-input": "required name=search_term_string",
-  },
+}
+
+const jsonLdOrganization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "fable5.io",
+  url: siteUrl,
+  logo: `${siteUrl}/icon-512.png`,
+  sameAs: ["https://twitter.com/fable5io", "https://github.com/fable5io"],
 }
 
 const jsonLdSoftwareApp = {
@@ -113,40 +124,11 @@ const jsonLdSoftwareApp = {
 const jsonLdFaq = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "What is Fable 5?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Fable 5 is the primary keyword tracked by this independent prompt workspace. The site helps users organize prompts, access notes, and model-comparison questions without claiming official status.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is fable5.io an official Fable 5 product?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "No. fable5.io is an independent community guide and prompt workspace. It does not claim affiliation with any official Fable 5 publisher, developer, or platform owner.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What can I do with the Fable 5 prompt workspace?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "You can craft and plan structured prompts for Fable 5 AI, select prompt modes, preview structured guidance, and use templates before testing prompts in your own tools.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Does this give me live access to the Fable 5 AI model?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "No. The workspace generates structured prompt plans and guidance, not live model output. Think of it as a prompt design tool, not a Fable 5 API client.",
-      },
-    },
-  ],
+  mainEntity: faqData.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
 }
 
 const jsonLdBreadcrumb = {
@@ -168,6 +150,12 @@ const jsonLdBreadcrumb = {
     {
       "@type": "ListItem",
       position: 3,
+      name: "Fable 5 Guide",
+      item: `${siteUrl}/#guide`,
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
       name: "FAQ",
       item: `${siteUrl}/#faq`,
     },
@@ -178,7 +166,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} antialiased bg-[#F7F5F3]`}>
       <head>
-        <link rel="canonical" href={siteUrl} />
         <script defer data-domain="fable5.io" src="https://plau.origai.net/js/script.js"></script>
         <script
           id="ld-website"
@@ -199,6 +186,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           id="ld-breadcrumb"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+        />
+        <script
+          id="ld-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
         />
       </head>
       <body className="font-sans antialiased">{children}</body>

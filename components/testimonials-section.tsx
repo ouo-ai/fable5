@@ -54,7 +54,13 @@ export default function TestimonialsSection() {
   const current = testimonials[activeTestimonial]
 
   return (
-    <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center">
+    <section
+      aria-labelledby="use-cases-heading"
+      className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center"
+    >
+      <h2 id="use-cases-heading" className="sr-only">
+        Fable 5 AI workspace use cases
+      </h2>
       <div className="self-stretch px-2 overflow-hidden flex justify-start items-center bg-background border-b border-l-0 border-r-0 border-t-0">
         <div className="flex-1 py-14 flex flex-col md:flex-row justify-center items-end gap-6">
           <div className="self-stretch px-3 md:px-12 justify-center items-start gap-4 flex flex-col md:flex-row">
@@ -71,12 +77,12 @@ export default function TestimonialsSection() {
             </div>
 
             <div className="flex-1 px-6 py-6 overflow-hidden flex flex-col justify-start items-start gap-6 pb-0 pt-0">
-              <div
+              <blockquote
                 className="self-stretch flex flex-col text-[#49423D] text-2xl md:text-[30px] font-medium leading-10 md:leading-[42px] font-sans h-[180px] md:h-[168px] overflow-hidden line-clamp-5 transition-all duration-700 ease-in-out tracking-tight"
                 style={{ filter: isTransitioning ? "blur(4px)" : "blur(0px)" }}
               >
                 &ldquo;{current.quote}&rdquo;
-              </div>
+              </blockquote>
               <div
                 className="self-stretch flex flex-col justify-start items-start gap-1 transition-all duration-700 ease-in-out"
                 style={{ filter: isTransitioning ? "blur(4px)" : "blur(0px)" }}
@@ -110,6 +116,6 @@ export default function TestimonialsSection() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

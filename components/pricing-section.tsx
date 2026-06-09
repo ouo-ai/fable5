@@ -35,9 +35,9 @@ export default function PricingSection() {
           <div className="px-[14px] py-[6px] bg-white shadow-[0px_0px_0px_4px_rgba(55,50,47,0.05)] overflow-hidden rounded-[90px] flex justify-start items-center gap-[8px] border border-[rgba(2,6,23,0.08)]">
             <span className="text-[#37322F] text-xs font-medium font-sans">Workspace Levels</span>
           </div>
-          <div className="self-stretch text-center text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[60px] font-sans tracking-tight">
+          <h2 className="self-stretch text-center text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[60px] font-sans tracking-tight">
             Start with the public Fable 5 guide
-          </div>
+          </h2>
           <div className="self-stretch text-center text-[#605A57] text-base font-normal leading-7 font-sans">
             The current Fable 5 prompt workspace is free. Additional research packs are shown as planned roadmap items,
             not active checkout plans.

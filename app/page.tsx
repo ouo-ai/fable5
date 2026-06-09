@@ -11,6 +11,7 @@ import FooterSection from "../components/footer-section"
 import TestimonialsSection from "../components/testimonials-section"
 import NumbersThatSpeak from "../components/numbers-that-speak"
 import EffortlessIntegration from "../components/effortless-integration-updated"
+import GuideSection from "../components/guide-section"
 
 // ─── Small pill badge ─────────────────────────────────────────────────────────
 function Pill({ children }: { children: React.ReactNode }) {
@@ -216,6 +217,9 @@ function Nav() {
             </a>
             <a href="#features" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
               Features
+            </a>
+            <a href="#guide" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
+              Guide
             </a>
             <a href="#faq" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
               FAQ
@@ -438,7 +442,7 @@ export default function Fable5Page() {
               Independent guide - no official affiliation claimed
             </Pill>
             <h1 className="text-[#37322F] text-4xl sm:text-5xl lg:text-[72px] font-normal font-serif leading-tight lg:leading-[1.1] text-balance">
-              Your Fable 5 prompt workspace
+              Your Fable 5 AI prompt workspace
             </h1>
             <p className="text-[rgba(55,50,47,0.70)] text-base sm:text-lg font-medium font-sans leading-relaxed max-w-xl text-pretty">
               Plan, structure, and refine prompts for the{" "}
@@ -550,6 +554,9 @@ export default function Fable5Page() {
             <EffortlessIntegration width={380} height={280} />
           </div>
         </div>
+
+        {/* ── Fable 5 guide ───────────────────────── */}
+        <GuideSection />
 
         {/* ── Testimonials ────────────────────────── */}
         <TestimonialsSection />

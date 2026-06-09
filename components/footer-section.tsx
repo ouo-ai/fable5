@@ -56,7 +56,21 @@ export default function FooterSection() {
             <div className="text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">Info</div>
             <div className="flex flex-col justify-center items-start gap-2">
               {["About", "FAQ", "Pricing", "Changelog", "Contact"].map((item) => (
-                <a key={item} href={item === "FAQ" ? "#faq" : item === "Pricing" ? "#pricing" : "#"} className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors">
+                <a
+                  key={item}
+                  href={
+                    item === "About"
+                      ? "#guide"
+                      : item === "FAQ"
+                        ? "#faq"
+                        : item === "Pricing"
+                          ? "#pricing"
+                          : item === "Contact"
+                            ? "mailto:hello@fable5.io"
+                            : "#"
+                  }
+                  className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors"
+                >
                   {item}
                 </a>
               ))}
