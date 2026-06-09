@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export default function FooterSection() {
   return (
     <footer className="w-full pt-10 flex flex-col justify-start items-start">
@@ -5,7 +7,16 @@ export default function FooterSection() {
       <div className="self-stretch flex flex-col md:flex-row justify-between items-stretch pb-8">
         {/* Brand */}
         <div className="p-4 md:p-8 flex flex-col justify-start items-start gap-6">
-          <div className="text-[#49423D] text-xl font-semibold leading-4 font-sans">fable5</div>
+          <div className="flex items-center gap-2.5 text-[#49423D] text-xl font-semibold leading-4 font-sans">
+            <Image
+              src="/icon-192.png"
+              alt=""
+              width={32}
+              height={32}
+              className="size-8 rounded-[9px] border border-[rgba(55,50,47,0.10)] shadow-[0px_1px_2px_rgba(55,50,47,0.12)]"
+            />
+            fable5
+          </div>
           <div className="text-[rgba(73,66,61,0.70)] text-sm font-normal leading-5 font-sans max-w-[200px]">
             Independent AI guide &amp; prompt workspace for Fable 5.
           </div>

@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import FAQSection from "../components/faq-section"
 import PricingSection from "../components/pricing-section"
@@ -196,7 +197,17 @@ function Nav() {
       <div className="w-full h-0 absolute left-0 top-6 sm:top-7 md:top-8 lg:top-[42px] border-t border-[rgba(55,50,47,0.12)] shadow-[0px_1px_0px_white]" />
       <div className="w-full max-w-[calc(100%-32px)] sm:max-w-[calc(100%-48px)] lg:max-w-[700px] h-10 sm:h-11 md:h-12 py-1.5 px-3 sm:px-4 pr-2 sm:pr-3 bg-[#F7F5F3] backdrop-blur-sm shadow-[0px_0px_0px_2px_white] overflow-hidden rounded-[50px] flex justify-between items-center relative z-30">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center text-[#2F3037] text-base sm:text-lg lg:text-xl font-medium font-sans">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-[#2F3037] text-base sm:text-lg lg:text-xl font-medium font-sans"
+          >
+            <Image
+              src="/icon-192.png"
+              alt=""
+              width={28}
+              height={28}
+              className="size-7 rounded-[8px] border border-[rgba(55,50,47,0.10)] shadow-[0px_1px_2px_rgba(55,50,47,0.12)]"
+            />
             fable5
           </Link>
           <div className="pl-4 sm:pl-5 hidden sm:flex flex-row gap-3 sm:gap-4">
