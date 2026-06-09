@@ -4,36 +4,37 @@ interface GuideEntry {
   body: string
 }
 
+/** Facts current as of June 10, 2026 — sources: Anthropic announcement and API docs, OpenRouter catalogue. */
 const guideEntries: GuideEntry[] = [
   {
     id: "what-is-fable-5",
     title: "What is Fable 5?",
-    body: "Fable 5 is an AI model name that has drawn growing search interest from writers, researchers, and developers. Because official, verifiable documentation is limited, this guide treats every claim about the Fable 5 model carefully: notes are labelled as verified, unverified, or pending review. Instead of repeating rumors, fable5.io focuses on what you can control today — writing better prompts, keeping organized research notes, and checking sources before you rely on them.",
+    body: "Claude Fable 5 is Anthropic's flagship AI model, released on June 9, 2026. Anthropic describes it as a Mythos-class model made safe for general use: its capabilities exceed any model the company has previously made generally available, with state-of-the-art results in software engineering, knowledge work, vision, and scientific research. New safeguards block responses in specific high-risk areas, and a small share of sensitive queries are answered by Claude Opus 4.8 instead.",
   },
   {
-    id: "how-to-prompt-fable-5",
-    title: "How to write effective Fable 5 prompts",
-    body: "Strong Fable 5 prompts follow the same structure that works across modern AI models: a clear role, one sentence of context, a specific task, an explicit output format, and hard constraints such as length or tone. The prompt planner above turns a rough idea into that structure in seconds. Start small, test one variable at a time, and save the versions that work as templates so every Fable 5 AI session begins from a proven scaffold.",
-  },
-  {
-    id: "fable-5-use-cases",
-    title: "Fable 5 AI use cases",
-    body: "The workspace supports five common use cases: creative writing and world-building, analytical research summaries, prompt safety reviews, side-by-side model comparisons, and reusable template design. Each mode produces a structured plan you can paste into whatever AI tools you already use — so your Fable 5 research stays portable, repeatable, and easy to audit later.",
+    id: "fable-5-specs",
+    title: "Fable 5 specs and pricing",
+    body: "Fable 5 offers a 1M-token context window and up to 128K output tokens. API pricing is $10 per million input tokens and $50 per million output tokens — double Opus 4.8 — with a 90% input discount on cached prompt content. The model uses adaptive thinking only: classic sampling knobs like temperature and top_p are removed, so output style is steered through prompting, and an effort parameter (low to max) trades depth against speed and cost.",
   },
   {
     id: "fable-5-access",
-    title: "How to track Fable 5 access safely",
-    body: "Search interest around Fable 5 access attracts scams. Treat any site that sells early-access keys, asks for unusual payments, or promises private Fable 5 API endpoints with extreme caution. fable5.io only tracks public access signals — official announcements, documented releases, and verifiable sources — and labels everything else as unverified. You should never need to share credentials or pay an unknown third party to follow Fable 5 news.",
+    title: "How to get access to Fable 5",
+    body: "Official channels: the Claude apps on paid plans (included on Pro, Max, Team, and seat-based Enterprise until June 22, 2026, then via usage credits), the Claude API under the model ID claude-fable-5, AWS, Google Cloud, and Microsoft Foundry, and GitHub Copilot. Routers such as OpenRouter list it as anthropic/claude-fable-5. Be cautious of anyone selling Fable 5 access keys outside these channels — you never need a third-party reseller.",
+  },
+  {
+    id: "how-to-prompt-fable-5",
+    title: "How to prompt Fable 5",
+    body: "Fable 5 follows instructions more literally than older models, which rewards precise prompts: state the role, one line of context, the task, the output format, and hard constraints. For long agentic tasks, put the full specification in the first message rather than drip-feeding it. Because sampling parameters are gone, ask for variation explicitly when you want it. The planner above structures a draft in seconds, and the Playground lets you test the structure on free models first.",
   },
   {
     id: "fable-5-comparison",
-    title: "Comparing Fable 5 with other AI models",
-    body: "Honest comparisons need identical prompts, recorded settings, and dated notes. The comparison worksheet keeps Fable 5 model observations separate from assumptions, so you never mistake a community impression for an official benchmark. When data is missing, the worksheet says so — a clear unverified label is more useful than a confident guess.",
+    title: "Fable 5 vs other Claude models",
+    body: "Choose by task value: Fable 5 ($10/$50 per million tokens) is the ceiling for hard, high-stakes work; Claude Opus 4.8 ($5/$25) remains extremely strong at half the price; Sonnet 4.6 ($3/$15) balances speed and intelligence; Haiku 4.5 ($1/$5) handles fast, simple tasks. All current models share the adaptive-thinking API surface, so the same well-structured prompt ports across tiers — run it on a cheaper model first and escalate only when quality demands it.",
   },
   {
     id: "independent-fable-5-guide",
     title: "Why an independent Fable 5 guide?",
-    body: "fable5.io is independent by design. It claims no affiliation with any Fable 5 publisher, sells no access, and runs no paid placements. That independence means the guide can say plainly what is verified and what is not — and update freely as public information about Fable 5 AI evolves. If you spot an error, use the contact link in the footer to report it.",
+    body: "fable5.io is not an Anthropic property — it is an independent workspace that aggregates public Fable 5 information with dates and sources: the Anthropic announcement, the Claude API docs, and the OpenRouter catalogue. Specs and pricing can change after publication, so every figure here is dated, and official sources always win on conflict. Spotted an error? Use the contact link in the footer to report it.",
   },
 ]
 
@@ -59,8 +60,8 @@ export default function GuideSection() {
             Everything you need to know about Fable 5
           </h2>
           <p className="text-[rgba(55,50,47,0.70)] text-base font-normal font-sans leading-relaxed">
-            A plain-language Fable 5 AI guide: what the model name means, how to prompt well, and how
-            to follow access news without falling for hype.
+            A plain-language guide to Anthropic&rsquo;s Fable 5 model: what it is, what it costs, how
+            to access it, and how to prompt it well. Facts dated June 10, 2026.
           </p>
         </div>
 

@@ -7,36 +7,42 @@ export interface FAQItem {
  * Single source of truth for FAQ content.
  * Rendered visibly in components/faq-section.tsx and emitted as
  * FAQPage JSON-LD in app/layout.tsx — keep both in sync by editing here only.
+ * Facts current as of June 10, 2026 (Anthropic announcement, API docs, OpenRouter).
  */
 export const faqData: FAQItem[] = [
   {
     question: "What is Fable 5?",
     answer:
-      "Fable 5 is an AI model name that people search for when they want prompt ideas, access updates, and model comparisons. fable5.io is an independent guide and prompt workspace built around that topic: it helps you plan structured Fable 5 prompts, keep source notes, and separate verified information from assumptions.",
+      "Fable 5 (Claude Fable 5) is Anthropic's most powerful generally available AI model, released on June 9, 2026. It is a Mythos-class conversational model made safe for general use, with state-of-the-art results across software engineering, knowledge work, vision, and scientific research — positioned as a new tier above Claude Opus 4.8.",
   },
   {
-    question: "Is fable5.io an official Fable 5 product?",
+    question: "Is fable5.io an official Anthropic or Fable 5 site?",
     answer:
-      "No. fable5.io is an independent community resource and prompt workspace. It does not claim affiliation with any official Fable 5 publisher, developer, model provider, or platform owner.",
+      "No. fable5.io is an independent community guide and prompt workspace. It is not affiliated with, endorsed by, or operated by Anthropic. Claude and Fable are Anthropic's marks, used here only to describe the model this guide covers.",
   },
   {
-    question: "Does the Fable 5 prompt planner use the live Fable 5 AI model?",
+    question: "How can I access the Fable 5 model?",
     answer:
-      "No. The prompt planner generates structured guidance and prompt plans; it does not call a live Fable 5 API or any other live AI endpoint. Think of it as a prompt design and planning tool that helps you craft better inputs before you use your own tools.",
+      "Fable 5 is available in the Claude apps on paid plans (included on Pro, Max, Team, and seat-based Enterprise until June 22, 2026, with usage credits afterwards), via the Claude API under the model ID claude-fable-5, on AWS, Google Cloud, and Microsoft Foundry, in GitHub Copilot, and through routers such as OpenRouter (anthropic/claude-fable-5).",
   },
   {
-    question: "What prompt modes does the Fable 5 workspace support?",
+    question: "How much does Fable 5 cost?",
     answer:
-      "The workspace currently supports five modes: Creative (narrative & world-building), Analytical (structured reasoning), Safety Check (responsible use review), Compare (side-by-side Fable 5 model notes), and Template (reusable prompt scaffolds). More modes will be added based on community feedback.",
+      "API pricing is $10 per million input tokens and $50 per million output tokens — double Claude Opus 4.8 — with a 1M-token context window and up to 128K output tokens. Prompt caching offers a 90% input-token discount on cached content. App availability depends on your Claude plan.",
   },
   {
-    question: "How accurate is the Fable 5 model comparison data?",
+    question: "Does the Playground use the real Fable 5 model?",
     answer:
-      "Comparison notes are planning aids, not official benchmarks. We label assumptions clearly and recommend verifying claims against authoritative sources before making decisions based on them.",
+      "No. Fable 5 is a paid API model, so the free Playground routes prompts to free open-weight models through OpenRouter instead. Use it to refine prompt structure at no cost, then run the finished prompt in your own Claude app or API account.",
   },
   {
-    question: "How do I get early access updates for Fable 5 AI?",
+    question: "What prompt modes does the workspace support?",
     answer:
-      "Use the Get early access link to request updates. We track public Fable 5 AI access signals and do not claim special access to unreleased Fable 5 capabilities.",
+      "The home-page planner supports five modes: Creative (narrative & world-building), Analytical (structured reasoning), Safety Check (responsible use review), Compare (side-by-side model notes), and Template (reusable prompt scaffolds). The live Playground adds Refine, Creative, Analytical, and Safety Review modes with real model output.",
+  },
+  {
+    question: "Which AI models power the Playground?",
+    answer:
+      "Free open-weight models routed through OpenRouter — currently OpenAI GPT-OSS 120B, Moonshot Kimi K2.6, Meta Llama 3.3 70B, Qwen3 Next 80B, and GLM 4.5 Air, with automatic fallback when a free provider is busy. The Models page lists context windows and pricing for the wider catalogue, refreshed daily.",
   },
 ]

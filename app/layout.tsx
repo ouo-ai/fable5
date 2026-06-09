@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import { faqData } from "../lib/faq-data"
+import { siteUrl } from "../lib/site"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,8 +20,6 @@ const instrumentSerif = Instrument_Serif({
   preload: true,
 })
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://fable5.io").replace(/\/$/, "")
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -28,17 +27,20 @@ export const metadata: Metadata = {
     template: "%s | Fable 5",
   },
   description:
-    "Independent Fable 5 AI guide and prompt workspace. Plan Fable 5 prompts with 5 modes and 40+ templates, compare model notes, and track access signals.",
+    "Independent guide to Anthropic's Fable 5 model — specs, API pricing, access channels, 42 prompt templates, and a free playground for testing prompt structure.",
   keywords: [
     "Fable 5",
     "Fable 5 AI",
+    "Claude Fable 5",
     "Fable 5 model",
+    "Fable 5 pricing",
+    "Fable 5 API",
+    "Fable 5 access",
     "Fable 5 prompts",
     "Fable 5 prompt guide",
     "Fable 5 prompt templates",
     "Fable 5 AI model",
     "Fable 5 workspace",
-    "Fable 5 access",
     "fable5",
     "AI prompt workspace",
     "AI model comparison",
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
     siteName: "Fable 5",
     title: "Fable 5 AI — Independent Model Guide & Prompt Workspace",
     description:
-      "Explore Fable 5 through an independent prompt guide. Build, compare, and refine Fable 5 AI prompt plans with transparent model notes.",
+      "Anthropic's Fable 5 model, explained independently: specs, API pricing, access channels, prompt templates, and a free testing playground.",
     locale: "en_US",
   },
   twitter: {
@@ -81,7 +83,7 @@ export const metadata: Metadata = {
     creator: "@fable5io",
     title: "Fable 5 AI — Independent Model Guide & Prompt Workspace",
     description:
-      "Craft better prompts for Fable 5 AI. Independent guide covering Fable 5 model prompts, safety checklists, and access-tracking notes.",
+      "Anthropic's Fable 5 model, explained independently: specs, pricing, access, prompt templates, and a free testing playground.",
   },
   generator: "v0.app",
 }
@@ -90,10 +92,10 @@ const jsonLdWebsite = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Fable 5",
-  alternateName: ["fable5.io", "Fable 5 AI"],
+  alternateName: ["fable5.io", "Fable 5 AI", "Claude Fable 5 guide"],
   url: siteUrl,
   description:
-    "Independent AI model guide and prompt workspace for Fable 5. No official affiliation is claimed.",
+    "Independent guide and prompt workspace for Anthropic's Fable 5 model. Not affiliated with Anthropic.",
 }
 
 const jsonLdOrganization = {
@@ -113,7 +115,7 @@ const jsonLdSoftwareApp = {
   operatingSystem: "Web",
   url: siteUrl,
   description:
-    "An independent Fable 5 AI prompt planner and guide. Design structured prompts, compare prompt formats, and track public access notes.",
+    "An independent Fable 5 prompt planner and guide. Design structured prompts, test them on free open models, and track public Fable 5 specs and access notes.",
   offers: {
     "@type": "Offer",
     price: "0",

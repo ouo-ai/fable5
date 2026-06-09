@@ -18,10 +18,10 @@ export default function FooterSection() {
             fable5
           </div>
           <div className="text-[rgba(73,66,61,0.70)] text-sm font-normal leading-5 font-sans max-w-[200px]">
-            Independent AI guide &amp; prompt workspace for Fable 5.
+            Independent guide &amp; prompt workspace for Anthropic&rsquo;s Fable 5 model.
           </div>
           <div className="text-[rgba(73,66,61,0.45)] text-xs font-normal leading-5 font-sans max-w-[220px]">
-            Independent resource. No official Fable 5 affiliation is claimed.
+            Independent resource. Not affiliated with Anthropic.
           </div>
 
           {/* Social */}
@@ -44,9 +44,15 @@ export default function FooterSection() {
           <div className="flex flex-col justify-start items-start gap-3 flex-1 min-w-[120px]">
             <div className="text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">Workspace</div>
             <div className="flex flex-col justify-end items-start gap-2">
-              {["Prompt Planner", "Templates", "Mode Guide", "Comparison Notes", "Access Tracker"].map((item) => (
-                <a key={item} href="#prompt-planner" className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors">
-                  {item}
+              {[
+                { label: "Prompt Planner", href: "/#prompt-planner" },
+                { label: "Playground", href: "/playground" },
+                { label: "Templates", href: "/templates" },
+                { label: "Model Directory", href: "/models" },
+                { label: "Fable 5 Guide", href: "/#guide" },
+              ].map((item) => (
+                <a key={item.label} href={item.href} className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors">
+                  {item.label}
                 </a>
               ))}
             </div>
@@ -55,23 +61,14 @@ export default function FooterSection() {
           <div className="flex flex-col justify-start items-start gap-3 flex-1 min-w-[120px]">
             <div className="text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">Info</div>
             <div className="flex flex-col justify-center items-start gap-2">
-              {["About", "FAQ", "Pricing", "Changelog", "Contact"].map((item) => (
-                <a
-                  key={item}
-                  href={
-                    item === "About"
-                      ? "#guide"
-                      : item === "FAQ"
-                        ? "#faq"
-                        : item === "Pricing"
-                          ? "#pricing"
-                          : item === "Contact"
-                            ? "mailto:hello@fable5.io"
-                            : "#"
-                  }
-                  className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors"
-                >
-                  {item}
+              {[
+                { label: "About", href: "/#guide" },
+                { label: "FAQ", href: "/#faq" },
+                { label: "Pricing", href: "/#pricing" },
+                { label: "Contact", href: "mailto:hello@fable5.io" },
+              ].map((item) => (
+                <a key={item.label} href={item.href} className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors">
+                  {item.label}
                 </a>
               ))}
             </div>
@@ -80,13 +77,17 @@ export default function FooterSection() {
           <div className="flex flex-col justify-start items-start gap-3 flex-1 min-w-[120px]">
             <div className="text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">Legal</div>
             <div className="flex flex-col justify-center items-start gap-2">
-              {["Terms of Use", "Privacy Policy", "Disclaimer"].map((item) => (
-                <a key={item} href="#" className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors">
-                  {item}
+              {[
+                { label: "Terms of Use", href: "/terms" },
+                { label: "Privacy Policy", href: "/privacy" },
+                { label: "Disclaimer", href: "/disclaimer" },
+              ].map((item) => (
+                <a key={item.label} href={item.href} className="text-[#49423D] text-sm font-normal leading-5 font-sans hover:text-[#37322F] transition-colors">
+                  {item.label}
                 </a>
               ))}
               <div className="mt-1 text-[11px] text-[rgba(73,66,61,0.40)] font-sans leading-4">
-                fable5.io is not affiliated with any official Fable 5 publisher.
+                fable5.io is not affiliated with Anthropic.
               </div>
             </div>
           </div>
@@ -114,7 +115,8 @@ export default function FooterSection() {
           &copy; {new Date().getFullYear()} fable5.io — Independent resource
         </p>
         <p className="text-[11px] text-[rgba(73,66,61,0.35)] font-sans text-center">
-          &quot;Fable 5&quot; is used as a descriptive keyword. No trademark ownership claimed.
+          &quot;Fable 5&quot; refers to Anthropic&rsquo;s Claude Fable 5 model. Claude and Fable are Anthropic&rsquo;s
+          marks; this independent site claims no affiliation.
         </p>
       </div>
     </footer>

@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next"
-
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://fable5.io").replace(/\/$/, "")
+import { siteUrl } from "../lib/site"
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/private/"],
+        disallow: ["/private/", "/api/"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

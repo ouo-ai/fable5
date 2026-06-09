@@ -2,8 +2,8 @@
 
 import type React from "react"
 import { useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
+import SiteNav from "../components/site-nav"
 import FAQSection from "../components/faq-section"
 import PricingSection from "../components/pricing-section"
 import CTASection from "../components/cta-section"
@@ -188,64 +188,13 @@ function PromptPlanner() {
   )
 }
 
-// ─── Navigation ───────────────────────────────────────────────────────────────
-function Nav() {
-  return (
-    <nav
-      aria-label="Main navigation"
-      className="w-full h-12 sm:h-14 md:h-16 lg:h-[84px] absolute left-0 top-0 flex justify-center items-center z-20 px-4 sm:px-6"
-    >
-      <div className="w-full h-0 absolute left-0 top-6 sm:top-7 md:top-8 lg:top-[42px] border-t border-[rgba(55,50,47,0.12)] shadow-[0px_1px_0px_white]" />
-      <div className="w-full max-w-[calc(100%-32px)] sm:max-w-[calc(100%-48px)] lg:max-w-[700px] h-10 sm:h-11 md:h-12 py-1.5 px-3 sm:px-4 pr-2 sm:pr-3 bg-[#F7F5F3] backdrop-blur-sm shadow-[0px_0px_0px_2px_white] overflow-hidden rounded-[50px] flex justify-between items-center relative z-30">
-        <div className="flex items-center">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-[#2F3037] text-base sm:text-lg lg:text-xl font-medium font-sans"
-          >
-            <Image
-              src="/icon-192.png"
-              alt=""
-              width={28}
-              height={28}
-              className="size-7 rounded-[8px] border border-[rgba(55,50,47,0.10)] shadow-[0px_1px_2px_rgba(55,50,47,0.12)]"
-            />
-            fable5
-          </Link>
-          <div className="pl-4 sm:pl-5 hidden sm:flex flex-row gap-3 sm:gap-4">
-            <a href="#prompt-planner" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
-              Planner
-            </a>
-            <a href="#features" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
-              Features
-            </a>
-            <a href="#guide" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
-              Guide
-            </a>
-            <a href="#faq" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
-              FAQ
-            </a>
-            <a href="#pricing" className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors">
-              Pricing
-            </a>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <a href="mailto:hello@fable5.io?subject=Fable%205%20early%20access" className="px-3 md:px-[14px] py-1 sm:py-[6px] bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] rounded-full flex justify-center items-center">
-            <span className="text-[#37322F] text-[13px] font-medium font-sans">Get early access</span>
-          </a>
-        </div>
-      </div>
-    </nav>
-  )
-}
-
 // ─── Stats bar ────────────────────────────────────────────────────────────────
 function StatsBar() {
   const stats = [
-    { value: "5 modes", label: "prompt modes" },
-    { value: "40+", label: "templates" },
-    { value: "Clear", label: "source labels" },
-    { value: "Free", label: "open workspace" },
+    { value: "1M", label: "context tokens" },
+    { value: "128K", label: "max output tokens" },
+    { value: "$10 / $50", label: "API price per 1M tokens" },
+    { value: "42", label: "free prompt templates" },
   ]
   return (
     <div className="w-full border-t border-b border-[rgba(55,50,47,0.12)] flex flex-wrap justify-center gap-0">
@@ -319,18 +268,17 @@ function ModePreviewCard({ mode, index }: { mode: (typeof MODES)[number]; index:
 
 // ─── Access tracker visual ────────────────────────────────────────────────────
 function AccessTracker() {
+  // Availability as of June 10, 2026 — sources: Anthropic announcement, OpenRouter catalogue.
   const items = [
-    { label: "Fable 5 public signal watch", status: "tracked", date: "Ongoing" },
-    { label: "Access-source review", status: "tracked", date: "Weekly" },
-    { label: "Prompt template library", status: "available", date: "Now" },
-    { label: "Live API integration", status: "pending", date: "Unverified" },
-    { label: "Comparison worksheet", status: "building", date: "Soon" },
+    { label: "Claude API — claude-fable-5", status: "live", date: "Jun 9, 2026" },
+    { label: "Claude apps — Pro, Max, Team, Enterprise", status: "included", date: "to Jun 22" },
+    { label: "OpenRouter — anthropic/claude-fable-5", status: "live", date: "Now" },
+    { label: "AWS, Google Cloud, Microsoft Foundry", status: "live", date: "Now" },
+    { label: "GitHub Copilot", status: "live", date: "GA" },
   ]
   const statusStyles: Record<string, string> = {
-    tracked: "bg-emerald-100 text-emerald-700",
-    available: "bg-sky-100 text-sky-700",
-    pending: "bg-amber-100 text-amber-700",
-    building: "bg-violet-100 text-violet-700",
+    live: "bg-emerald-100 text-emerald-700",
+    included: "bg-sky-100 text-sky-700",
   }
   return (
     <div className="w-full max-w-sm flex flex-col gap-2.5">
@@ -373,13 +321,14 @@ function TemplateGallery() {
 
 // ─── Comparison table ─────────────────────────────────────────────────────────
 function ComparisonTable() {
+  // Public specs as of June 10, 2026 — Anthropic API docs and OpenRouter catalogue.
   const rows = [
-    { feature: "Prompt format", fable5: "Track template", others: "Use same template" },
-    { feature: "Output quality", fable5: "Record manually", others: "Record manually" },
-    { feature: "Real-time data", fable5: "Unverified", others: "Check per tool" },
-    { feature: "Multimodal input", fable5: "Unverified", others: "Check per tool" },
-    { feature: "Safety policy", fable5: "Source needed", others: "Review provider docs" },
-    { feature: "Access status", fable5: "Track public notes", others: "Track account status" },
+    { feature: "Context window", fable5: "1M tokens", others: "1M · 1M" },
+    { feature: "Max output", fable5: "128K tokens", others: "128K · 64K" },
+    { feature: "Input price / 1M tokens", fable5: "$10", others: "$5 · $3" },
+    { feature: "Output price / 1M tokens", fable5: "$50", others: "$25 · $15" },
+    { feature: "Thinking", fable5: "Adaptive only", others: "Adaptive" },
+    { feature: "Tier", fable5: "Flagship — above Opus", others: "Opus · Sonnet" },
   ]
   return (
     <div className="w-full overflow-x-auto rounded-lg border border-[rgba(55,50,47,0.12)]">
@@ -387,13 +336,13 @@ function ComparisonTable() {
         <thead>
           <tr className="bg-[#F7F5F3]">
             <th className="text-left px-3 py-2.5 text-[rgba(55,50,47,0.55)] font-medium border-b border-[rgba(55,50,47,0.10)]">
-              Feature
+              Spec
             </th>
             <th className="text-left px-3 py-2.5 text-[#37322F] font-semibold border-b border-[rgba(55,50,47,0.10)]">
-              Fable 5 AI
+              Fable 5
             </th>
             <th className="text-left px-3 py-2.5 text-[rgba(55,50,47,0.55)] font-medium border-b border-[rgba(55,50,47,0.10)]">
-              Other models
+              Opus 4.8 · Sonnet 4.6
             </th>
           </tr>
         </thead>
@@ -408,7 +357,8 @@ function ComparisonTable() {
         </tbody>
       </table>
       <p className="px-3 py-2 text-[10px] text-[rgba(55,50,47,0.40)] font-sans bg-[#FAFAF9] border-t border-[rgba(55,50,47,0.08)]">
-        Community-sourced notes. Not official benchmarks. Independent of any Fable 5 publisher.
+        Public specs as of June 10, 2026, from Anthropic&rsquo;s announcement and API docs. Independent
+        site — verify with official sources before budgeting.
       </p>
     </div>
   )
@@ -429,7 +379,7 @@ export default function Fable5Page() {
 
       {/* ── Sticky nav ─────────────────────────── */}
       <div className="w-full max-w-[1060px] relative pt-[9px]">
-        <Nav />
+        <SiteNav />
 
         {/* ── Hero / Prompt Planner (first viewport) ─ */}
         <section className="pt-24 sm:pt-28 lg:pt-36 pb-10 px-4 sm:px-6 lg:px-0 flex flex-col items-center gap-6 border-b border-[rgba(55,50,47,0.12)]">
@@ -439,27 +389,34 @@ export default function Fable5Page() {
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
                 <path d="M5 1l1.2 2.5L9 4.1 7 6l.5 2.8L5 7.5 2.5 8.8 3 6 1 4.1l2.8-.6L5 1z" fill="#37322F" />
               </svg>
-              Independent guide - no official affiliation claimed
+              Independent guide — not affiliated with Anthropic
             </Pill>
             <h1 className="text-[#37322F] text-4xl sm:text-5xl lg:text-[72px] font-normal font-serif leading-tight lg:leading-[1.1] text-balance">
               Your Fable 5 AI prompt workspace
             </h1>
             <p className="text-[rgba(55,50,47,0.70)] text-base sm:text-lg font-medium font-sans leading-relaxed max-w-xl text-pretty">
-              Plan, structure, and refine prompts for the{" "}
-              <strong className="font-semibold text-[#37322F]">Fable 5 AI model</strong>. Compare modes, use templates,
-              and track Fable 5 access signals - all in one independent workspace.
+              Plan, structure, and refine prompts for{" "}
+              <strong className="font-semibold text-[#37322F]">Anthropic&rsquo;s Fable 5 model</strong> — the newest
+              Claude flagship. Specs, pricing, access channels, templates, and a free testing playground in one
+              independent workspace.
             </p>
           </div>
 
           {/* Prompt planner widget — first usable experience */}
           <div className="w-full max-w-2xl">
             <PromptPlanner />
+            <p className="mt-3 text-center text-xs text-[rgba(55,50,47,0.55)] font-sans">
+              Want real model output?{" "}
+              <Link href="/playground" className="underline underline-offset-2 hover:text-[#37322F]">
+                Open the live Playground →
+              </Link>
+            </p>
           </div>
 
           {/* Disclaimer */}
           <p className="text-[11px] text-[rgba(55,50,47,0.40)] font-sans text-center max-w-lg text-balance">
-            fable5.io is an independent community resource. It is not an official Fable 5 product, and no live Fable 5
-            API access is provided.
+            fable5.io is an independent community resource — not affiliated with Anthropic. No official Fable 5
+            access is sold here; the free Playground runs open-weight models, not Fable 5 itself.
           </p>
         </section>
 
@@ -485,22 +442,22 @@ export default function Fable5Page() {
             reverse
             label="Access Tracker"
             title="Track Fable 5 model availability in one place"
-            description="Track public Fable 5 AI access signals, source links, and verification status. Every note is labelled as verified, unverified, or pending review."
+            description="Where Fable 5 is live right now — the Claude apps, the Claude API, AWS, Google Cloud, Microsoft Foundry, GitHub Copilot, and OpenRouter — with a date for every channel."
             visual={<AccessTracker />}
           />
 
           <FeatureHighlight
             label="Prompt Templates"
-            title="40+ ready-to-use Fable 5 prompt templates"
-            description="Copy, customize, and paste a growing library of Fable 5 prompt templates. Designed for creative writing, analytical queries, comparisons, and safety reviews."
+            title="42 ready-to-use Fable 5 prompt templates"
+            description="Copy, customize, and paste prompts built for Fable 5 chat — creative writing, research, coding, marketing, learning, productivity, and safety review."
             visual={<TemplateGallery />}
           />
 
           <FeatureHighlight
             reverse
             label="Model Comparison"
-            title="Side-by-side Fable 5 AI comparison notes"
-            description="Compare Fable 5 model notes against other AI tools with a consistent worksheet. The page avoids official benchmark claims and marks unsourced notes clearly."
+            title="Fable 5 specs vs other Claude models"
+            description="Context window, output limits, and API pricing for Fable 5 next to Claude Opus 4.8 and Sonnet 4.6 — public data, clearly dated and sourced."
             visual={<ComparisonTable />}
           />
         </div>
