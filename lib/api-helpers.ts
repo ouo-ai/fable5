@@ -39,16 +39,20 @@ export interface UpstreamErrorMapping {
   message: string
 }
 
-/** Map an OpenRouter non-200 status to a sanitized client-facing error. */
+/**
+ * Map an OpenRouter non-200 status to a sanitized client-facing error.
+ * Upstream failures are surfaced as 500 (not 502/504): Cloudflare replaces origin
+ * 502/503/504 responses with its own error page, which would hide our JSON body.
+ */
 export function mapUpstreamStatus(status: number): UpstreamErrorMapping {
   if (status === 401 || status === 403) {
-    return { status: 502, code: "UPSTREAM_AUTH", message: "The live model service rejected the configuration." }
+    return { status: 500, code: "UPSTREAM_AUTH", message: "The live model service rejected the configuration." }
   }
   if (status === 402) {
-    return { status: 502, code: "UPSTREAM_CREDITS", message: "The live model service is temporarily unavailable." }
+    return { status: 500, code: "UPSTREAM_CREDITS", message: "The live model service is temporarily unavailable." }
   }
   if (status === 429) {
     return { status: 429, code: "UPSTREAM_BUSY", message: "Free model capacity is busy right now. Try again shortly." }
   }
-  return { status: 502, code: "UPSTREAM_ERROR", message: "The model provider returned an error. Try another model." }
+  return { status: 500, code: "UPSTREAM_ERROR", message: "The model provider returned an error. Try another model." }
 }

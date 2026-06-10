@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { DEFAULT_MODEL_ID, isAllowedModel, PLAYGROUND_MODELS } from "../../../lib/openrouter"
+import { buildFallbackChain, DEFAULT_MODEL_ID, isAllowedModel } from "../../../lib/openrouter"
 import { siteUrl } from "../../../lib/site"
 import { createRateLimiter, errorResponse, getClientIp, mapUpstreamStatus } from "../../../lib/api-helpers"
 
@@ -82,9 +82,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return errorResponse(400, "MODEL_NOT_ALLOWED", "The requested model is not in the playground allowlist.")
   }
 
-  // Route through the requested model first, then the remaining allowlist as fallbacks,
-  // so transient free-tier provider failures degrade gracefully instead of erroring.
-  const fallbackChain = [requestedModel, ...PLAYGROUND_MODELS.map((m) => m.id).filter((id) => id !== requestedModel)]
+  // Route through the requested model first, then allowlist fallbacks, so transient
+  // free-tier provider failures degrade gracefully instead of erroring.
+  const fallbackChain = buildFallbackChain(requestedModel)
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS)
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     if (!text) {
       console.error(JSON.stringify({ level: "error", correlationId, event: "generate_empty_output", durationMs }))
-      return errorResponse(502, "EMPTY_OUTPUT", "The model returned no usable output. Try again or switch models.")
+      return errorResponse(500, "EMPTY_OUTPUT", "The model returned no usable output. Try again or switch models.")
     }
 
     console.log(
@@ -163,8 +163,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         durationMs: Date.now() - startedAt,
       }),
     )
+    // 500 instead of 502/504: Cloudflare replaces origin 502/504 with its own error
+    // page, which would hide this JSON body from the client.
     return errorResponse(
-      aborted ? 504 : 502,
+      500,
       aborted ? "UPSTREAM_TIMEOUT" : "NETWORK_ERROR",
       aborted ? "The model took too long to respond. Try a shorter prompt." : "Could not reach the model service.",
     )

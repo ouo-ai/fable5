@@ -55,6 +55,15 @@ export function isAllowedModel(id: string): boolean {
   return PLAYGROUND_MODELS.some((model) => model.id === id)
 }
 
+// OpenRouter rejects `models` arrays longer than 3 items (400, verified 2026-06-10).
+const OPENROUTER_MAX_FALLBACK_MODELS = 3
+
+/** Requested model first, then allowlist fallbacks, capped to OpenRouter's limit. */
+export function buildFallbackChain(requestedModel: string): string[] {
+  const chain = [requestedModel, ...PLAYGROUND_MODELS.map((m) => m.id).filter((id) => id !== requestedModel)]
+  return chain.slice(0, OPENROUTER_MAX_FALLBACK_MODELS)
+}
+
 /** Slim row used by the /models directory page and table. */
 export interface ModelRow {
   id: string

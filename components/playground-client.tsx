@@ -44,9 +44,9 @@ export default function PlaygroundClient({ models }: { models: PlaygroundModel[]
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: trimmed, mode, model: modelId }),
       })
-      const json = (await res.json()) as GenerateResponse
-      if (!res.ok || json.error || !json.data) {
-        setError(json.error?.message ?? "Something went wrong. Please try again.")
+      const json = (await res.json().catch(() => null)) as GenerateResponse | null
+      if (!res.ok || !json || json.error || !json.data) {
+        setError(json?.error?.message ?? `Something went wrong (HTTP ${res.status}). Please try again.`)
         return
       }
       setOutput(json.data.text)

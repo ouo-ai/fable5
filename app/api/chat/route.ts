@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server"
-import { DEFAULT_MODEL_ID, isAllowedModel, PLAYGROUND_MODELS } from "../../../lib/openrouter"
+import { buildFallbackChain, DEFAULT_MODEL_ID, isAllowedModel } from "../../../lib/openrouter"
 import { siteUrl } from "../../../lib/site"
 import { createRateLimiter, errorResponse, getClientIp, mapUpstreamStatus } from "../../../lib/api-helpers"
 import {
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     return errorResponse(400, "MODEL_NOT_ALLOWED", "The requested model is not in the chat allowlist.")
   }
 
-  const fallbackChain = [requestedModel, ...PLAYGROUND_MODELS.map((m) => m.id).filter((id) => id !== requestedModel)]
+  const fallbackChain = buildFallbackChain(requestedModel)
   const totalInputChars = messages.reduce((sum, message) => sum + message.content.length, 0)
 
   let upstream: Response
@@ -136,9 +136,11 @@ export async function POST(request: NextRequest): Promise<Response> {
       event: timedOut ? "chat_upstream_timeout" : "chat_network_error",
       durationMs: Date.now() - startedAt,
     })
+    // 500 instead of 502/504: Cloudflare replaces origin 502/504 with its own error
+    // page, which would hide this JSON body from the client.
     return timedOut
-      ? errorResponse(504, "UPSTREAM_TIMEOUT", "The model took too long to respond. Try a shorter prompt.")
-      : errorResponse(502, "NETWORK_ERROR", "Could not reach the model service.")
+      ? errorResponse(500, "UPSTREAM_TIMEOUT", "The model took too long to respond. Try a shorter prompt.")
+      : errorResponse(500, "NETWORK_ERROR", "Could not reach the model service.")
   }
 
   if (!upstream.ok || !upstream.body) {

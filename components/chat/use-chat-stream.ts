@@ -75,7 +75,10 @@ export function useChatStream({ onDone, onError }: ChatStreamCallbacks): ChatStr
 
         if (!response.ok || !response.body) {
           const envelope = (await response.json().catch(() => null)) as ErrorEnvelope | null
-          callbacksRef.current.onError("", envelope?.error?.message ?? "Something went wrong. Please try again.")
+          callbacksRef.current.onError(
+            "",
+            envelope?.error?.message ?? `Something went wrong (HTTP ${response.status}). Please try again.`,
+          )
           return
         }
 
