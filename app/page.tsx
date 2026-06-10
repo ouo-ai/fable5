@@ -406,9 +406,9 @@ export default function Fable5Page() {
           <div className="w-full max-w-2xl">
             <PromptPlanner />
             <p className="mt-3 text-center text-xs text-[rgba(55,50,47,0.55)] font-sans">
-              Want real model output?{" "}
-              <Link href="/playground" className="underline underline-offset-2 hover:text-[#37322F]">
-                Open the live Playground →
+              Want a real conversation?{" "}
+              <Link href="/chat" className="underline underline-offset-2 hover:text-[#37322F]">
+                Open the Chat →
               </Link>
             </p>
           </div>

@@ -45,6 +45,7 @@ export default function FooterSection() {
             <div className="text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">Workspace</div>
             <div className="flex flex-col justify-end items-start gap-2">
               {[
+                { label: "Chat", href: "/chat" },
                 { label: "Prompt Planner", href: "/#prompt-planner" },
                 { label: "Playground", href: "/playground" },
                 { label: "Templates", href: "/templates" },

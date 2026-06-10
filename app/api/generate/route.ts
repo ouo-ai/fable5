@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { DEFAULT_MODEL_ID, isAllowedModel, PLAYGROUND_MODELS } from "../../../lib/openrouter"
 import { siteUrl } from "../../../lib/site"
+import { createRateLimiter, errorResponse, getClientIp, mapUpstreamStatus } from "../../../lib/api-helpers"
 
 export const runtime = "nodejs"
 export const maxDuration = 60
@@ -40,24 +41,7 @@ interface GenerateRequestBody {
   model?: unknown
 }
 
-// Best-effort per-instance limiter; serverless instances each keep their own window,
-// which is acceptable for a free demo endpoint backed by free-tier models.
-const rateLimitHits = new Map<string, { count: number; resetAt: number }>()
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const entry = rateLimitHits.get(ip)
-  if (!entry || entry.resetAt <= now) {
-    rateLimitHits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
-    return false
-  }
-  entry.count += 1
-  return entry.count > RATE_LIMIT_MAX_REQUESTS
-}
-
-function errorResponse(status: number, code: string, message: string): NextResponse {
-  return NextResponse.json({ data: null, error: { message, code } }, { status })
-}
+const isRateLimited = createRateLimiter({ windowMs: RATE_LIMIT_WINDOW_MS, maxRequests: RATE_LIMIT_MAX_REQUESTS })
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const correlationId = crypto.randomUUID()
@@ -69,7 +53,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return errorResponse(500, "CONFIG_ERROR", "The live model service is not configured.")
   }
 
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown"
+  const ip = getClientIp(request)
   if (isRateLimited(ip)) {
     console.warn(JSON.stringify({ level: "warn", correlationId, event: "generate_rate_limited" }))
     return errorResponse(429, "RATE_LIMITED", "Too many requests. Please wait a while and try again.")
@@ -138,16 +122,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           durationMs,
         }),
       )
-      if (upstream.status === 401 || upstream.status === 403) {
-        return errorResponse(502, "UPSTREAM_AUTH", "The live model service rejected the configuration.")
-      }
-      if (upstream.status === 402) {
-        return errorResponse(502, "UPSTREAM_CREDITS", "The live model service is temporarily unavailable.")
-      }
-      if (upstream.status === 429) {
-        return errorResponse(429, "UPSTREAM_BUSY", "Free model capacity is busy right now. Try again shortly.")
-      }
-      return errorResponse(502, "UPSTREAM_ERROR", "The model provider returned an error. Try another model.")
+      const mapped = mapUpstreamStatus(upstream.status)
+      return errorResponse(mapped.status, mapped.code, mapped.message)
     }
 
     const json = (await upstream.json()) as {

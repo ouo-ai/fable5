@@ -1,12 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const NAV_LINKS: Array<{ label: string; href: string }> = [
+const NAV_LINKS: Array<{ label: string; href: string; mdUp?: boolean }> = [
+  { label: "Chat", href: "/chat" },
   { label: "Playground", href: "/playground" },
   { label: "Models", href: "/models" },
   { label: "Templates", href: "/templates" },
-  { label: "Guide", href: "/#guide" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Guide", href: "/#guide", mdUp: true },
+  { label: "FAQ", href: "/#faq", mdUp: true },
 ]
 
 export default function SiteNav() {
@@ -36,7 +37,9 @@ export default function SiteNav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors"
+                className={`text-[rgba(49,45,43,0.80)] text-[13px] font-medium font-sans hover:text-[#37322F] transition-colors ${
+                  link.mdUp ? "hidden md:inline" : ""
+                }`}
               >
                 {link.label}
               </Link>

@@ -33,6 +33,12 @@ export default function PlaygroundPage() {
 
       <div className="max-w-3xl mx-auto">
         <PlaygroundClient models={PLAYGROUND_MODELS} />
+        <p className="mt-3 text-center text-xs text-[rgba(55,50,47,0.55)] font-sans">
+          Prefer a back-and-forth conversation?{" "}
+          <Link href="/chat" className="underline underline-offset-2 hover:text-[#37322F]">
+            Try the Chat →
+          </Link>
+        </p>
       </div>
 
       <section aria-labelledby="playground-how" className="max-w-3xl mx-auto mt-12 flex flex-col gap-6">
