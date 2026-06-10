@@ -26,8 +26,12 @@ export default function PlaygroundPage() {
           Fable 5 AI Playground
         </h1>
         <p className="text-[rgba(55,50,47,0.70)] text-base sm:text-lg font-medium font-sans leading-relaxed text-pretty">
-          Test your prompts on real, free open-weight models. The planner on the home page structures your idea —
-          the Playground shows you what a live model actually does with it.
+          Test a single prompt on real, free open-weight models. The Playground is the scalpel for refining one
+          prompt — for a full back-and-forth conversation, use the{" "}
+          <Link href="/chat" className="underline underline-offset-2">
+            Chat
+          </Link>
+          .
         </p>
       </div>
 

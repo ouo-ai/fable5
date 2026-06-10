@@ -2,8 +2,8 @@ const tiers = [
   {
     name: "Open Workspace",
     price: "Free",
-    description: "Use the Fable 5 prompt planner and basic templates with no account.",
-    items: ["5 prompt modes", "Demo prompt-plan output", "Basic template library", "Access-signal checklist"],
+    description: "Use the Fable 5 chat, playground, and templates with no account.",
+    items: ["Streaming chat on open models", "42 prompt templates", "Daily model directory", "Fable 5 access tracker"],
   },
   {
     name: "Research Pack",

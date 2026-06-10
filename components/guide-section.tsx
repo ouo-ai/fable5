@@ -24,7 +24,7 @@ const guideEntries: GuideEntry[] = [
   {
     id: "how-to-prompt-fable-5",
     title: "How to prompt Fable 5",
-    body: "Fable 5 follows instructions more literally than older models, which rewards precise prompts: state the role, one line of context, the task, the output format, and hard constraints. For long agentic tasks, put the full specification in the first message rather than drip-feeding it. Because sampling parameters are gone, ask for variation explicitly when you want it. The planner above structures a draft in seconds, and the Playground lets you test the structure on free models first.",
+    body: "Fable 5 follows instructions more literally than older models, which rewards precise prompts: state the role, one line of context, the task, the output format, and hard constraints. For long agentic tasks, put the full specification in the first message rather than drip-feeding it. Because sampling parameters are gone, ask for variation explicitly when you want it. The free Chat on this site is a quick place to practice, and the Playground refines a single prompt before you spend Fable 5 tokens.",
   },
   {
     id: "fable-5-comparison",

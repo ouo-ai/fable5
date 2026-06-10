@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Menu, SquarePen } from "lucide-react"
 import { DEFAULT_MODEL_ID, isAllowedModel, type PlaygroundModel } from "../../lib/openrouter"
-import { CHAT_MAX_MESSAGES, CHAT_MAX_TOTAL_CHARS } from "../../lib/chat-config"
+import { CHAT_MAX_MESSAGE_CHARS, CHAT_MAX_MESSAGES, CHAT_MAX_TOTAL_CHARS } from "../../lib/chat-config"
 import {
   createConversation,
   deleteConversation,
@@ -49,10 +49,16 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
     messagesRef.current = messages
   }, [messages])
 
-  // The only startup storage read — in an effect, so prerendered HTML stays stable.
+  // Startup client-only reads (storage + ?q= prefill from landing-page chips) — in an
+  // effect, so prerendered HTML stays stable.
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration-safe one-time client read
     setConversations(loadConversations())
+    const prefill = new URLSearchParams(window.location.search).get("q")
+    if (prefill) {
+      setInput(prefill.slice(0, CHAT_MAX_MESSAGE_CHARS))
+      textareaRef.current?.focus()
+    }
   }, [])
 
   const persist = (nextMessages: StoredMessage[]) => {

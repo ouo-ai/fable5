@@ -56,7 +56,7 @@ export default function OpenGraphImage() {
         </div>
 
         <div style={{ display: "flex", gap: 14 }}>
-          {["Prompt Planner", "40+ Templates", "Access Tracker", "Model Notes"].map((label) => (
+          {["Free Chat", "42 Templates", "Access Tracker", "Model Notes"].map((label) => (
             <div
               key={label}
               style={{

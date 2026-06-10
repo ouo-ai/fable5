@@ -36,9 +36,9 @@ export const faqData: FAQItem[] = [
       "No. Fable 5 is a paid API model, so the free Playground routes prompts to free open-weight models through OpenRouter instead. Use it to refine prompt structure at no cost, then run the finished prompt in your own Claude app or API account.",
   },
   {
-    question: "What prompt modes does the workspace support?",
+    question: "What's the difference between the Chat and the Playground?",
     answer:
-      "The home-page planner supports five modes: Creative (narrative & world-building), Analytical (structured reasoning), Safety Check (responsible use review), Compare (side-by-side model notes), and Template (reusable prompt scaffolds). The live Playground adds Refine, Creative, Analytical, and Safety Review modes with real model output.",
+      "The Chat is a free, claude-style streaming conversation: multi-turn, Markdown answers, model picker, and history saved in your browser. The Playground is a one-shot tool for refining a single prompt with four structured modes (Refine, Creative, Analytical, Safety Review). Both run free open-weight models via OpenRouter — neither is Fable 5 itself.",
   },
   {
     question: "Which AI models power the Playground?",

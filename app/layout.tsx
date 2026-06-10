@@ -115,7 +115,7 @@ const jsonLdSoftwareApp = {
   operatingSystem: "Web",
   url: siteUrl,
   description:
-    "An independent Fable 5 prompt planner and guide. Design structured prompts, test them on free open models, and track public Fable 5 specs and access notes.",
+    "An independent Fable 5 guide and chat workspace. Chat free on open models, use prompt templates, and track public Fable 5 specs and access notes.",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -146,8 +146,8 @@ const jsonLdBreadcrumb = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Prompt Planner",
-      item: `${siteUrl}/#prompt-planner`,
+      name: "Chat",
+      item: `${siteUrl}/chat`,
     },
     {
       "@type": "ListItem",

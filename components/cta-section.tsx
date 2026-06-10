@@ -41,10 +41,10 @@ export default function CTASection() {
                 </span>
               </Link>
               <Link
-                href="/#prompt-planner"
+                href="/templates"
                 className="h-10 px-6 py-[6px] rounded-full border border-[rgba(55,50,47,0.20)] text-[#37322F] text-[13px] font-medium font-sans hover:border-[rgba(55,50,47,0.40)] transition-colors flex items-center"
               >
-                Try the planner
+                Browse templates
               </Link>
             </div>
             <p className="text-[11px] text-[rgba(55,50,47,0.40)] font-sans text-center">

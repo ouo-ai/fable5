@@ -46,7 +46,6 @@ export default function FooterSection() {
             <div className="flex flex-col justify-end items-start gap-2">
               {[
                 { label: "Chat", href: "/chat" },
-                { label: "Prompt Planner", href: "/#prompt-planner" },
                 { label: "Playground", href: "/playground" },
                 { label: "Templates", href: "/templates" },
                 { label: "Model Directory", href: "/models" },
