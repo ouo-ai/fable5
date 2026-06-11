@@ -44,7 +44,7 @@ export default function ChatEmptyState({ onSuggestion, children }: ChatEmptyStat
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-4 gap-7 overflow-y-auto py-10">
-      <h1 className="sr-only">Fable 5 Chat — free AI chat on open models</h1>
+      <h1 className="sr-only">Fable 5 Chat — free AI assistant powered by GPT-4o</h1>
 
       <div className="flex items-center gap-3" aria-hidden="true">
         <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="shrink-0">
@@ -63,9 +63,9 @@ export default function ChatEmptyState({ onSuggestion, children }: ChatEmptyStat
           <div className="w-full max-w-2xl flex items-start gap-2 bg-[#FAFAF9] border border-[rgba(55,50,47,0.12)] rounded-lg px-3 py-2">
             <Info className="size-3.5 mt-0.5 shrink-0 text-[rgba(55,50,47,0.45)]" aria-hidden="true" />
             <p className="flex-1 text-[11px] text-[rgba(55,50,47,0.55)] font-sans leading-relaxed">
-              This chat runs free open-weight models (GPT-OSS, Kimi, Llama, Qwen, GLM) via OpenRouter — not
-              Anthropic&rsquo;s Fable 5. Busy periods may fall back to another listed model. Conversations are saved
-              only in this browser.
+              Fable 5 is the name of this site&rsquo;s free assistant, powered by OpenAI&rsquo;s GPT-4o via
+              OpenRouter — it is not Anthropic&rsquo;s Claude Fable 5 model. Conversations are saved only in this
+              browser.
             </p>
             <button
               onClick={dismissDisclosure}

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Menu, SquarePen } from "lucide-react"
-import { DEFAULT_MODEL_ID, isAllowedModel, type PlaygroundModel } from "../../lib/openrouter"
+import { CHAT_MODEL_ID } from "../../lib/openrouter"
 import { CHAT_MAX_MESSAGE_CHARS, CHAT_MAX_MESSAGES, CHAT_MAX_TOTAL_CHARS } from "../../lib/chat-config"
 import {
   createConversation,
@@ -33,12 +33,11 @@ function trimForApi(messages: StoredMessage[]): StoredMessage[] {
   return window
 }
 
-export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
+export default function ChatApp() {
   const [conversations, setConversations] = useState<StoredConversation[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [messages, setMessages] = useState<StoredMessage[]>([])
   const [input, setInput] = useState("")
-  const [modelId, setModelId] = useState(DEFAULT_MODEL_ID)
   const [chatError, setChatError] = useState<string | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -64,7 +63,7 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
   const persist = (nextMessages: StoredMessage[]) => {
     const conv = activeConvRef.current
     if (!conv) return
-    const updated: StoredConversation = { ...conv, model: modelId, messages: nextMessages, updatedAt: Date.now() }
+    const updated: StoredConversation = { ...conv, model: CHAT_MODEL_ID, messages: nextMessages, updatedAt: Date.now() }
     activeConvRef.current = updated
     saveConversation(updated)
     setConversations((prev) => [updated, ...prev.filter((c) => c.id !== updated.id)])
@@ -93,7 +92,7 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
     setChatError(null)
 
     if (!activeConvRef.current) {
-      const conv = createConversation(modelId, text)
+      const conv = createConversation(CHAT_MODEL_ID, text)
       activeConvRef.current = conv
       setActiveId(conv.id)
     }
@@ -103,7 +102,7 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
     setInput("")
     if (textareaRef.current) textareaRef.current.style.height = "auto"
     persist(nextMessages)
-    void start(trimForApi(nextMessages), modelId)
+    void start(trimForApi(nextMessages), CHAT_MODEL_ID)
   }
 
   const handleRegenerate = () => {
@@ -114,7 +113,7 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
     if (base.length === 0) return
     setMessages(base)
     persist(base)
-    void start(trimForApi(base), modelId)
+    void start(trimForApi(base), CHAT_MODEL_ID)
   }
 
   const handleNewChat = () => {
@@ -138,7 +137,6 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
     activeConvRef.current = conv
     setActiveId(conv.id)
     setMessages(conv.messages)
-    setModelId(isAllowedModel(conv.model) ? conv.model : DEFAULT_MODEL_ID)
     setChatError(null)
     setSidebarOpen(false)
   }
@@ -162,9 +160,6 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
       onSend={handleSend}
       onStop={stop}
       isStreaming={isStreaming}
-      models={models}
-      modelId={modelId}
-      onModelChange={setModelId}
       variant={isEmpty ? "hero" : "docked"}
       textareaRef={textareaRef}
     />
@@ -218,7 +213,8 @@ export default function ChatApp({ models }: { models: PlaygroundModel[] }) {
               <div className="max-w-3xl mx-auto flex flex-col gap-2">
                 {composer}
                 <p className="text-[11px] text-[rgba(55,50,47,0.40)] font-sans text-center">
-                  Free open models via OpenRouter — not Fable 5. AI can be wrong; verify important answers.
+                  Powered by GPT-4o via OpenRouter — not Anthropic&rsquo;s Claude Fable 5 model. AI can be wrong;
+                  verify important answers.
                 </p>
               </div>
             </div>

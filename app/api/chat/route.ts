@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server"
-import { buildFallbackChain, DEFAULT_MODEL_ID, isAllowedModel } from "../../../lib/openrouter"
+import { CHAT_MODEL_ID } from "../../../lib/openrouter"
 import { siteUrl } from "../../../lib/site"
 import { createRateLimiter, errorResponse, getClientIp, mapUpstreamStatus } from "../../../lib/api-helpers"
 import {
@@ -21,10 +21,11 @@ const MAX_BUFFERED_REASONING_CHARS = 16_384
 const isRateLimited = createRateLimiter({ windowMs: 60 * 60 * 1000, maxRequests: 40 })
 
 const SYSTEM_PROMPT =
-  "You are a helpful, knowledgeable AI assistant in the chat workspace on fable5.io, an independent guide to " +
-  "Anthropic's Fable 5 model. You are an open-weight model served through OpenRouter — you are NOT Fable 5, and " +
-  "you must say so if asked which model you are. Answer directly and format responses in Markdown. Use fenced " +
-  "code blocks with a language tag for code. Be concise by default; expand only when the question calls for depth."
+  "You are Fable 5, the chat assistant on fable5.io — an independent guide to Anthropic's Fable 5 model. " +
+  "'Fable 5' is this product's brand name only: you run on OpenAI's GPT-4o served through OpenRouter, and you are " +
+  "NOT Anthropic's Claude Fable 5 model. If asked which model you are, say you are the Fable 5 assistant powered " +
+  "by GPT-4o. Answer directly and format responses in Markdown. Use fenced code blocks with a language tag for " +
+  "code. Be concise by default; expand only when the question calls for depth."
 
 interface ChatRequestBody {
   messages?: unknown
@@ -96,12 +97,9 @@ export async function POST(request: NextRequest): Promise<Response> {
     )
   }
 
-  const requestedModel = typeof body.model === "string" ? body.model : DEFAULT_MODEL_ID
-  if (!isAllowedModel(requestedModel)) {
-    return errorResponse(400, "MODEL_NOT_ALLOWED", "The requested model is not in the chat allowlist.")
-  }
-
-  const fallbackChain = buildFallbackChain(requestedModel)
+  // The chat always runs the single paid chat model — client model choice is ignored
+  // so visitors can't route this public endpoint to pricier models.
+  const requestedModel = CHAT_MODEL_ID
   const totalInputChars = messages.reduce((sum, message) => sum + message.content.length, 0)
 
   let upstream: Response
@@ -118,7 +116,6 @@ export async function POST(request: NextRequest): Promise<Response> {
       },
       body: JSON.stringify({
         model: requestedModel,
-        models: fallbackChain,
         max_tokens: CHAT_MAX_OUTPUT_TOKENS,
         stream: true,
         messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],

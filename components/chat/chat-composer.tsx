@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { ArrowUp, Plus, Square } from "lucide-react"
-import type { PlaygroundModel } from "../../lib/openrouter"
+import { CHAT_MODEL_LABEL } from "../../lib/openrouter"
 import { CHAT_MAX_MESSAGE_CHARS } from "../../lib/chat-config"
 
 const TEXTAREA_MAX_HEIGHT_PX = 200
@@ -14,9 +14,6 @@ interface ChatComposerProps {
   onSend: () => void
   onStop: () => void
   isStreaming: boolean
-  models: PlaygroundModel[]
-  modelId: string
-  onModelChange: (id: string) => void
   variant: "hero" | "docked"
   textareaRef: React.RefObject<HTMLTextAreaElement | null>
 }
@@ -27,9 +24,6 @@ export default function ChatComposer({
   onSend,
   onStop,
   isStreaming,
-  models,
-  modelId,
-  onModelChange,
   variant,
   textareaRef,
 }: ChatComposerProps) {
@@ -85,18 +79,9 @@ export default function ChatComposer({
         </button>
 
         <div className="flex items-center gap-2.5">
-          <select
-            value={modelId}
-            onChange={(event) => onModelChange(event.target.value)}
-            aria-label="Model"
-            className="max-w-[180px] text-xs font-sans text-[rgba(55,50,47,0.60)] bg-transparent focus:outline-none cursor-pointer hover:text-[#37322F] transition-colors"
-          >
-            {models.map((model) => (
-              <option key={model.id} value={model.id}>
-                {model.label}
-              </option>
-            ))}
-          </select>
+          <span className="text-xs font-sans text-[rgba(55,50,47,0.60)]" title="Powered by GPT-4o via OpenRouter">
+            {CHAT_MODEL_LABEL}
+          </span>
 
           {isStreaming ? (
             <button

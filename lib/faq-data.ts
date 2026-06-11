@@ -31,14 +31,14 @@ export const faqData: FAQItem[] = [
       "API pricing is $10 per million input tokens and $50 per million output tokens — double Claude Opus 4.8 — with a 1M-token context window and up to 128K output tokens. Prompt caching offers a 90% input-token discount on cached content. App availability depends on your Claude plan.",
   },
   {
-    question: "Does the Playground use the real Fable 5 model?",
+    question: "Is the free chat on fable5.io the real Fable 5 model?",
     answer:
-      "No. Fable 5 is a paid API model, so the free Playground routes prompts to free open-weight models through OpenRouter instead. Use it to refine prompt structure at no cost, then run the finished prompt in your own Claude app or API account.",
+      "No. 'Fable 5' is the brand name of this site's free assistant — under the hood it runs OpenAI's GPT-4o through OpenRouter, and the chat UI says so. Anthropic's Claude Fable 5 is available only through official channels: the Claude apps, the Claude API, and the major cloud platforms.",
   },
   {
     question: "What's the difference between the Chat and the Playground?",
     answer:
-      "The Chat is a free, claude-style streaming conversation: multi-turn, Markdown answers, model picker, and history saved in your browser. The Playground is a one-shot tool for refining a single prompt with four structured modes (Refine, Creative, Analytical, Safety Review). Both run free open-weight models via OpenRouter — neither is Fable 5 itself.",
+      "The Chat is a free, claude-style streaming conversation powered by GPT-4o: multi-turn, Markdown answers, and history saved in your browser. The Playground is a one-shot tool for refining a single prompt with four structured modes (Refine, Creative, Analytical, Safety Review) on free open-weight models. Neither is Anthropic's Fable 5 itself.",
   },
   {
     question: "Which AI models power the Playground?",

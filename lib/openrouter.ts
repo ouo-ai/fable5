@@ -55,6 +55,14 @@ export function isAllowedModel(id: string): boolean {
   return PLAYGROUND_MODELS.some((model) => model.id === id)
 }
 
+/**
+ * The chat product runs on a single PAID model. "Fable 5" is the assistant's brand
+ * name in the UI (this site's name); the underlying model is always disclosed in
+ * the chat UI as GPT-4o — it is NOT Anthropic's Claude Fable 5.
+ */
+export const CHAT_MODEL_ID = "openai/gpt-4o"
+export const CHAT_MODEL_LABEL = "Fable 5"
+
 // OpenRouter rejects `models` arrays longer than 3 items (400, verified 2026-06-10).
 const OPENROUTER_MAX_FALLBACK_MODELS = 3
 
