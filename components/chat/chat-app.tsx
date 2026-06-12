@@ -213,8 +213,8 @@ export default function ChatApp() {
               <div className="max-w-3xl mx-auto flex flex-col gap-2">
                 {composer}
                 <p className="text-[11px] text-[rgba(55,50,47,0.40)] font-sans text-center">
-                  Powered by GPT-4o via OpenRouter — not Anthropic&rsquo;s Claude Fable 5 model. AI can be wrong;
-                  verify important answers.
+                  Fable 5 is this site&rsquo;s own free assistant, not Anthropic&rsquo;s Claude Fable 5 model. AI can
+                  be wrong; verify important answers.
                 </p>
               </div>
             </div>

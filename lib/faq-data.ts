@@ -33,12 +33,12 @@ export const faqData: FAQItem[] = [
   {
     question: "Is the free chat on fable5.io the real Fable 5 model?",
     answer:
-      "No. 'Fable 5' is the brand name of this site's free assistant — under the hood it runs OpenAI's GPT-4o through OpenRouter, and the chat UI says so. Anthropic's Claude Fable 5 is available only through official channels: the Claude apps, the Claude API, and the major cloud platforms.",
+      "No. 'Fable 5' here is the brand name of this site's own free assistant, not Anthropic's Claude Fable 5 model. The real Claude Fable 5 is available only through official channels: the Claude apps, the Claude API, and the major cloud platforms.",
   },
   {
     question: "What's the difference between the Chat and the Playground?",
     answer:
-      "The Chat is a free, claude-style streaming conversation powered by GPT-4o: multi-turn, Markdown answers, and history saved in your browser. The Playground is a one-shot tool for refining a single prompt with four structured modes (Refine, Creative, Analytical, Safety Review) on free open-weight models. Neither is Anthropic's Fable 5 itself.",
+      "The Chat is a free, claude-style streaming conversation: multi-turn, Markdown answers, and history saved in your browser. The Playground is a one-shot tool for refining a single prompt with four structured modes (Refine, Creative, Analytical, Safety Review) on free open-weight models. Neither is Anthropic's Fable 5 itself.",
   },
   {
     question: "Which AI models power the Playground?",

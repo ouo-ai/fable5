@@ -2,9 +2,8 @@
 
 import type React from "react"
 import { useEffect, useState } from "react"
-import { ChartColumn, Code, GraduationCap, Info, Lightbulb, PenLine, X } from "lucide-react"
+import { ChartColumn, Code, GraduationCap, Lightbulb, PenLine } from "lucide-react"
 import { CHAT_SUGGESTIONS } from "../../lib/chat-config"
-import { loadDisclosureDismissed, saveDisclosureDismissed } from "../../lib/chat-storage"
 
 const SUGGESTION_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code,
@@ -29,22 +28,15 @@ export default function ChatEmptyState({ onSuggestion, children }: ChatEmptyStat
   // Server HTML says "Hello"; the time-of-day greeting is applied after mount
   // so the first client render matches the prerendered markup.
   const [greeting, setGreeting] = useState("Hello")
-  const [showDisclosure, setShowDisclosure] = useState(false)
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- post-hydration swap keeps SSR HTML stable
     setGreeting(greetingForHour(new Date().getHours()))
-    setShowDisclosure(!loadDisclosureDismissed())
   }, [])
-
-  const dismissDisclosure = () => {
-    setShowDisclosure(false)
-    saveDisclosureDismissed()
-  }
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-4 gap-7 overflow-y-auto py-10">
-      <h1 className="sr-only">Fable 5 Chat — free AI assistant powered by GPT-4o</h1>
+      <h1 className="sr-only">Fable 5 Chat — free AI chat assistant</h1>
 
       <div className="flex items-center gap-3" aria-hidden="true">
         <svg width="34" height="34" viewBox="0 0 34 34" fill="none" className="shrink-0">
@@ -56,27 +48,7 @@ export default function ChatEmptyState({ onSuggestion, children }: ChatEmptyStat
         <span className="font-serif text-4xl sm:text-5xl text-[#37322F] leading-tight">{greeting}</span>
       </div>
 
-      <div className="w-full flex flex-col items-center gap-3">
-        {children}
-
-        {showDisclosure && (
-          <div className="w-full max-w-2xl flex items-start gap-2 bg-[#FAFAF9] border border-[rgba(55,50,47,0.12)] rounded-lg px-3 py-2">
-            <Info className="size-3.5 mt-0.5 shrink-0 text-[rgba(55,50,47,0.45)]" aria-hidden="true" />
-            <p className="flex-1 text-[11px] text-[rgba(55,50,47,0.55)] font-sans leading-relaxed">
-              Fable 5 is the name of this site&rsquo;s free assistant, powered by OpenAI&rsquo;s GPT-4o via
-              OpenRouter — it is not Anthropic&rsquo;s Claude Fable 5 model. Conversations are saved only in this
-              browser.
-            </p>
-            <button
-              onClick={dismissDisclosure}
-              aria-label="Dismiss notice"
-              className="shrink-0 text-[rgba(55,50,47,0.45)] hover:text-[#37322F]"
-            >
-              <X className="size-3.5" aria-hidden="true" />
-            </button>
-          </div>
-        )}
-      </div>
+      <div className="w-full flex flex-col items-center">{children}</div>
 
       <div className="flex flex-wrap justify-center gap-2">
         {CHAT_SUGGESTIONS.map((suggestion) => {

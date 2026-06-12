@@ -79,7 +79,7 @@ export default function ChatComposer({
         </button>
 
         <div className="flex items-center gap-2.5">
-          <span className="text-xs font-sans text-[rgba(55,50,47,0.60)]" title="Powered by GPT-4o via OpenRouter">
+          <span className="text-xs font-sans text-[rgba(55,50,47,0.60)]" title="fable5.io's own free assistant">
             {CHAT_MODEL_LABEL}
           </span>
 

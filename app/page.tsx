@@ -65,7 +65,7 @@ function ChatTeaser() {
       </div>
 
       <p className="text-center text-xs text-[rgba(55,50,47,0.55)] font-sans">
-        Free streaming chat powered by GPT-4o — no account needed.{" "}
+        Free streaming chat — no account needed.{" "}
         <Link href="/chat" className="underline underline-offset-2 hover:text-[#37322F]">
           Open the Chat →
         </Link>
@@ -81,7 +81,7 @@ function ChatPreview() {
       <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[rgba(55,50,47,0.08)] bg-[#FAFAF9]">
         <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" aria-hidden="true" />
         <span className="text-[11px] text-[rgba(55,50,47,0.40)] font-medium font-sans tracking-wide">
-          fable5 chat — powered by GPT-4o
+          fable5 chat — free assistant
         </span>
       </div>
       <div className="p-4 flex flex-col gap-3">
@@ -311,7 +311,7 @@ export default function Fable5Page() {
           {/* Disclaimer */}
           <p className="text-[11px] text-[rgba(55,50,47,0.40)] font-sans text-center max-w-lg text-balance">
             fable5.io is an independent community resource — not affiliated with Anthropic. No official Fable 5
-            access is sold here; the free chat is powered by GPT-4o, not Fable 5 itself.
+            access is sold here; the free chat is this site&rsquo;s own assistant, not the Fable 5 model itself.
           </p>
         </section>
 
@@ -323,7 +323,7 @@ export default function Fable5Page() {
           <FeatureHighlight
             label="Live Chat"
             title="A free chat workspace for Fable 5 research"
-            description="Claude-style, full-screen streaming chat powered by GPT-4o: Markdown answers and history saved in your browser. No account, no cost — practice your Fable 5 prompt ideas live before spending tokens."
+            description="Claude-style, full-screen streaming chat: Markdown answers and history saved in your browser. No account, no cost — practice your Fable 5 prompt ideas live before spending tokens."
             visual={<ChatPreview />}
           />
 

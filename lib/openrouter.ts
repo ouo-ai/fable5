@@ -57,8 +57,10 @@ export function isAllowedModel(id: string): boolean {
 
 /**
  * The chat product runs on a single PAID model. "Fable 5" is the assistant's brand
- * name in the UI (this site's name); the underlying model is always disclosed in
- * the chat UI as GPT-4o — it is NOT Anthropic's Claude Fable 5.
+ * name in the UI (this site's name). The UI presents only the brand; the underlying
+ * GPT-4o is disclosed by the system prompt when a user asks which model it is. The
+ * UI keeps the standing "not Anthropic's Claude Fable 5 model" clarification so the
+ * brand is never mistaken for Anthropic's flagship.
  */
 export const CHAT_MODEL_ID = "openai/gpt-4o"
 export const CHAT_MODEL_LABEL = "Fable 5"

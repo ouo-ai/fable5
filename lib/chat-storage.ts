@@ -25,7 +25,6 @@ interface ChatStoreV1 {
 }
 
 const STORAGE_KEY = "fable5.chat.v1"
-const DISCLOSURE_KEY = "fable5.chat.disclosure.v1"
 const MAX_CONVERSATIONS = 30
 const MAX_MESSAGES_PER_CONVERSATION = 200
 const MAX_STORED_MESSAGE_CHARS = 24_000
@@ -124,23 +123,5 @@ export function createConversation(model: string, firstUserMessage: string): Sto
     createdAt: now,
     updatedAt: now,
     messages: [],
-  }
-}
-
-export function loadDisclosureDismissed(): boolean {
-  if (!storageAvailable()) return false
-  try {
-    return window.localStorage.getItem(DISCLOSURE_KEY) === "1"
-  } catch {
-    return false
-  }
-}
-
-export function saveDisclosureDismissed(): void {
-  if (!storageAvailable()) return
-  try {
-    window.localStorage.setItem(DISCLOSURE_KEY, "1")
-  } catch {
-    // Non-critical.
   }
 }
